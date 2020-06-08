@@ -17,39 +17,6 @@ export const Container = styled.div`
   }
 `;
 
-export const Header = styled.header`
-  padding: 40px 0;
-
-  display: flex;
-  justify-content: space-between;
-
-  color: ${(props) => props.theme.primary};
-
-  #header-logo {
-    display: flex;
-    align-items: center;
-
-    h1 {
-      font-weight: 500;
-      font-size: 23px;
-      margin-left: 7px;
-    }
-  }
-
-  #header-link {
-    display: flex;
-    align-items: center;
-    color: ${(props) => props.theme.primary};
-    text-decoration: none;
-
-    span {
-      margin-right: 10px;
-      font-size: 20px;
-      font-weight: 500;
-    }
-  }
-`;
-
 export const Main = styled.main`
   margin-top: 150px;
   width: 50%;

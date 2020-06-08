@@ -1,13 +1,12 @@
-import React, { useState, useEffect, ChangeEvent } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AiFillHeart, AiOutlineSearch, AiOutlineHeart } from 'react-icons/ai';
-import { DebounceInput } from 'react-debounce-input';
 import createPersistedSate from 'use-persisted-state';
 import Loading from 'react-loading';
 import { useTheme } from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import { Container, SearchBar, Volume } from './styles';
 import Header from 'components/Header';
+import { Container, Volume } from './styles';
 import bookApi from 'services/bookApi';
 
 const useFavoritedVolumesState = createPersistedSate('favorited-volumes');
@@ -21,7 +20,6 @@ interface VolumeData {
 }
 
 const Search = () => {
-  const [query, setQuery] = useState('');
   const [volumes, setVolumes] = useState<VolumeData[]>([]);
   const [searching, setSearching] = useState(false);
   const [favoritedVolumes, setFavoritedVolumes] = useFavoritedVolumesState<
@@ -31,21 +29,22 @@ const Search = () => {
   const theme = useTheme();
 
   useEffect(() => {
-    if (query.length > 0) {
-      setVolumes([]);
-      setSearching(true);
-      bookApi.getVolumes(query).then((responseVolumes) => {
-        setVolumes(responseVolumes);
-        setSearching(false);
+    setSearching(true);
+    Promise.all(
+      favoritedVolumes.map((favoritedVolume) =>
+        bookApi.getVolume(favoritedVolume)
+      )
+    ).then((unsortedVolumes) => {
+      const sortedVolumes = unsortedVolumes.sort((a, b) => {
+        if (a.title === b.title) {
+          return 0;
+        }
+        return a.title > b.title ? 1 : -1;
       });
-    } else {
-      setVolumes([]);
-    }
-  }, [query]);
-
-  function handleSearchInputChange(event: ChangeEvent<HTMLInputElement>) {
-    setQuery(event.target.value);
-  }
+      setVolumes(sortedVolumes);
+      setSearching(false);
+    });
+  }, [favoritedVolumes]);
 
   function handleFavoriteVolume(id: string) {
     if (favoritedVolumes.includes(id)) {
@@ -60,21 +59,13 @@ const Search = () => {
   return (
     <Container>
       <Header>
-        <Link id="header-link" to="/favorited">
-          <span>Favorited books</span>
-          <AiFillHeart size={25} />
+        <Link id="header-link" to="/search">
+          <span>Search</span>
+          <AiOutlineSearch size={25} />
         </Link>
       </Header>
-      <SearchBar>
-        <DebounceInput
-          debounceTimeout={600}
-          value={query}
-          onChange={handleSearchInputChange}
-        />
-        <div id="search-icon">
-          <AiOutlineSearch size={22} />
-        </div>
-      </SearchBar>
+
+      <h1>Favorited books</h1>
 
       {searching ? (
         <div id="loading">

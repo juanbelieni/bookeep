@@ -1,17 +1,19 @@
 import axios from 'axios';
 
-interface Response {
-  items: {
-    id: string;
-    volumeInfo: {
-      title: string;
-      authors?: string[];
-      description: string;
-      imageLinks?: {
-        thumbnail: string;
-      };
+interface Volume {
+  id: string;
+  volumeInfo: {
+    title: string;
+    authors?: string[];
+    description: string;
+    imageLinks?: {
+      thumbnail: string;
     };
-  }[];
+  };
+}
+
+interface Volumes {
+  items: Volume[];
 }
 
 const api = axios.create({
@@ -20,7 +22,7 @@ const api = axios.create({
 
 export default {
   async getVolumes(query: string) {
-    const response = await api.get<Response>('/volumes', {
+    const response = await api.get<Volumes>('/volumes', {
       params: {
         q: query,
         printType: 'books',
@@ -43,5 +45,20 @@ export default {
     }));
 
     return serializedVolumes;
+  },
+  async getVolume(id: string) {
+    const response = await api.get<Volume>(`/volumes/${id}`);
+
+    const volume = response.data;
+
+    const serializedVolume = {
+      id: volume.id,
+      title: volume.volumeInfo.title,
+      authors: volume.volumeInfo.authors?.join(', '),
+      description: volume.volumeInfo.description,
+      image: volume.volumeInfo.imageLinks?.thumbnail,
+    };
+
+    return serializedVolume;
   },
 };

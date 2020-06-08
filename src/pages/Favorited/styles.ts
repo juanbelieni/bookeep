@@ -11,6 +11,13 @@ export const Container = styled.div`
     margin-top: 100px;
   }
 
+  h1 {
+    color: ${(props) => props.theme.primary};
+    font-weight: 500;
+    font-size: 35px;
+    margin: 10px 0;
+  }
+
   @media screen and (max-width: 650px) {
     padding: 0 20px;
   }
