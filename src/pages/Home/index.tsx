@@ -8,8 +8,8 @@ import { Container, Main } from './styles';
 const Home = () => (
   <Container>
     <Header>
-      <Link id="header-link" to="/favorited">
-        <span>Favorited books</span>
+      <Link id="header-link" to="/favorite">
+        <span>Favorite books</span>
         <AiFillHeart size={25} />
       </Link>
     </Header>

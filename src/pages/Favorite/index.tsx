@@ -9,7 +9,7 @@ import Header from 'components/Header';
 import { Container, Volume } from './styles';
 import bookApi from 'services/bookApi';
 
-const useFavoritedVolumesState = createPersistedSate('favorited-volumes');
+const useFavoriteVolumesState = createPersistedSate('favorite-volumes');
 
 interface VolumeData {
   id: string;
@@ -19,10 +19,10 @@ interface VolumeData {
   image?: string;
 }
 
-const Search = () => {
+const Favorite = () => {
   const [volumes, setVolumes] = useState<VolumeData[]>([]);
   const [searching, setSearching] = useState(false);
-  const [favoritedVolumes, setFavoritedVolumes] = useFavoritedVolumesState<
+  const [favoriteVolumes, setFavoriteVolumes] = useFavoriteVolumesState<
     string[]
   >([]);
 
@@ -31,8 +31,8 @@ const Search = () => {
   useEffect(() => {
     setSearching(true);
     Promise.all(
-      favoritedVolumes.map((favoritedVolume) =>
-        bookApi.getVolume(favoritedVolume)
+      favoriteVolumes.map((favoriteVolume) =>
+        bookApi.getVolume(favoriteVolume)
       )
     ).then((unsortedVolumes) => {
       const sortedVolumes = unsortedVolumes.sort((a, b) => {
@@ -44,15 +44,15 @@ const Search = () => {
       setVolumes(sortedVolumes);
       setSearching(false);
     });
-  }, [favoritedVolumes]);
+  }, [favoriteVolumes]);
 
   function handleFavoriteVolume(id: string) {
-    if (favoritedVolumes.includes(id)) {
-      setFavoritedVolumes((oldFavoritedVolumes) =>
-        oldFavoritedVolumes.filter((volumeId) => volumeId !== id)
+    if (favoriteVolumes.includes(id)) {
+      setFavoriteVolumes((oldFavoriteVolumes) =>
+        oldFavoriteVolumes.filter((volumeId) => volumeId !== id)
       );
     } else {
-      setFavoritedVolumes([...favoritedVolumes, id]);
+      setFavoriteVolumes([...favoriteVolumes, id]);
     }
   }
 
@@ -65,7 +65,7 @@ const Search = () => {
         </Link>
       </Header>
 
-      <h1>Favorited books</h1>
+      <h1>Favorite books</h1>
 
       {searching ? (
         <div id="loading">
@@ -84,7 +84,7 @@ const Search = () => {
             <div className="volume-info">
               <div className="volume-header">
                 <h1>{volume.title}</h1>
-                {favoritedVolumes.includes(volume.id) ? (
+                {favoriteVolumes.includes(volume.id) ? (
                   <AiFillHeart
                     size={25}
                     onClick={() => handleFavoriteVolume(volume.id)}
@@ -106,4 +106,4 @@ const Search = () => {
   );
 };
 
-export default Search;
+export default Favorite;

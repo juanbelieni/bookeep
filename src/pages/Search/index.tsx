@@ -10,7 +10,7 @@ import { Container, SearchBar, Volume } from './styles';
 import Header from 'components/Header';
 import bookApi from 'services/bookApi';
 
-const useFavoritedVolumesState = createPersistedSate('favorited-volumes');
+const useFavoriteVolumesState = createPersistedSate('favorite-volumes');
 
 interface VolumeData {
   id: string;
@@ -24,7 +24,7 @@ const Search = () => {
   const [query, setQuery] = useState('');
   const [volumes, setVolumes] = useState<VolumeData[]>([]);
   const [searching, setSearching] = useState(false);
-  const [favoritedVolumes, setFavoritedVolumes] = useFavoritedVolumesState<
+  const [favoriteVolumes, setFavoriteVolumes] = useFavoriteVolumesState<
     string[]
   >([]);
 
@@ -48,20 +48,20 @@ const Search = () => {
   }
 
   function handleFavoriteVolume(id: string) {
-    if (favoritedVolumes.includes(id)) {
-      setFavoritedVolumes((oldFavoritedVolumes) =>
-        oldFavoritedVolumes.filter((volumeId) => volumeId !== id)
+    if (favoriteVolumes.includes(id)) {
+      setFavoriteVolumes((oldFavoriteVolumes) =>
+        oldFavoriteVolumes.filter((volumeId) => volumeId !== id)
       );
     } else {
-      setFavoritedVolumes([...favoritedVolumes, id]);
+      setFavoriteVolumes([...favoriteVolumes, id]);
     }
   }
 
   return (
     <Container>
       <Header>
-        <Link id="header-link" to="/favorited">
-          <span>Favorited books</span>
+        <Link id="header-link" to="/favorite">
+          <span>Favorite books</span>
           <AiFillHeart size={25} />
         </Link>
       </Header>
@@ -93,7 +93,7 @@ const Search = () => {
             <div className="volume-info">
               <div className="volume-header">
                 <h1>{volume.title}</h1>
-                {favoritedVolumes.includes(volume.id) ? (
+                {favoriteVolumes.includes(volume.id) ? (
                   <AiFillHeart
                     size={25}
                     onClick={() => handleFavoriteVolume(volume.id)}
