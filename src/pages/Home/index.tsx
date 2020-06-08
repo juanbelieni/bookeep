@@ -1,5 +1,6 @@
 import React from 'react';
 import { AiOutlineBook, AiFillHeart, AiOutlineSearch } from 'react-icons/ai';
+import {Link} from 'react-router-dom'
 
 import { Container, Header, Main } from './styles';
 
@@ -17,12 +18,12 @@ const Home = () => (
     </Header>
     <Main>
       <h2>A place to find and save your favorite books.</h2>
-      <a href="/search" id="main-button">
+      <Link to="/search" id="main-button">
         <span>
           <AiOutlineSearch size={30} />
         </span>
         <strong>Search a book</strong>
-      </a>
+      </Link>
     </Main>
   </Container>
 );

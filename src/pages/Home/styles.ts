@@ -7,6 +7,14 @@ export const Container = styled.div`
   background-position: calc(100% - 40px) calc(100% - 40px);
   padding: 0 100px;
   height: 100vh;
+
+  @media screen and (max-width: 1000px) {
+    background: none;
+  }
+
+  @media screen and (max-width: 650px) {
+    padding: 0 20px;
+  }
 `;
 
 export const Header = styled.header`
@@ -43,12 +51,13 @@ export const Header = styled.header`
 `;
 
 export const Main = styled.main`
-  margin-top: 160px;
+  margin-top: 150px;
   width: 50%;
-  display: flex;
-  flex-direction: column;
-
   color: ${(props) => props.theme.primary};
+
+  @media screen and (max-width: 900px) {
+    width: 100%;
+  }
 
   h2 {
     font-size: 39px;
