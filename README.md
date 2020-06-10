@@ -11,7 +11,7 @@
 
   <img alt="Repository size" src="https://img.shields.io/github/repo-size/juanbelieni/bookeep">
 
-  <a href="https://github.com/brunnosena/next-level-booster/commits/master">
+  <a href="https://github.com/juanbelieni/bookeep/commits/master">
     <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/juanbelieni/bookeep">
   </a>
 
@@ -44,7 +44,7 @@
 
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]](https://bookeep.netlify.app)
 
 This is a simple React Web App created with TypeScript to search and favorite books. I created it because I love books and programming, so why not do something with both?
 
