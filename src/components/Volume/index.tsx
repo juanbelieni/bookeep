@@ -46,7 +46,7 @@ const Volume = (props: VolumeProps) => {
           )}
         </div>
         <h2>{volume.authors}</h2>
-        <p>{volume.description}</p>
+        <p dangerouslySetInnerHTML={{__html: volume.description}}></p>
       </div>
     </VolumeContainer>
   )

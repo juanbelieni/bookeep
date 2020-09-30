@@ -8,7 +8,14 @@ interface Volume {
     description: string;
     imageLinks?: {
       thumbnail: string;
+      small: string;
     };
+    industryIdentifiers: [{
+      type: string;
+      identifier: string;
+    }];
+    publisher: string;
+    publishedDate: string;
   };
 }
 
@@ -50,6 +57,7 @@ export default {
     const response = await api.get<Volume>(`/volumes/${id}`);
 
     const volume = response.data;
+    console.log(volume)
 
     const serializedVolume = {
       id: volume.id,
@@ -57,6 +65,10 @@ export default {
       authors: volume.volumeInfo.authors?.join(', '),
       description: volume.volumeInfo.description,
       image: volume.volumeInfo.imageLinks?.thumbnail,
+      imageLarge: volume.volumeInfo.imageLinks?.small,
+      industryIdentifiers: volume.volumeInfo.industryIdentifiers,
+      publisher: volume.volumeInfo.publisher,
+      publishedDate: volume.volumeInfo.publishedDate
     };
 
     return serializedVolume;

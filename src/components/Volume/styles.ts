@@ -34,6 +34,15 @@ export const VolumeContainer = styled.div`
         font-size: 24px;
         font-weight: 500;
       }
+      
+      a:link, a:visited {
+        color: ${(props) => props.theme.primary};
+        text-decoration: none;
+      }
+      
+      a:hover, a:focus {
+        text-decoration: underline;
+      }
 
       svg {
         cursor: pointer;
