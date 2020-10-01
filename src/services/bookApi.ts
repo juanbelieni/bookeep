@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-interface Volume {
+interface ResponseVolume {
   id: string;
   volumeInfo: {
     title: string;
@@ -10,17 +10,36 @@ interface Volume {
       thumbnail: string;
       small: string;
     };
-    industryIdentifiers: [{
-      type: string;
-      identifier: string;
-    }];
+    industryIdentifiers: [
+      {
+        type: string;
+        identifier: string;
+      }
+    ];
     publisher: string;
     publishedDate: string;
   };
 }
 
-interface Volumes {
-  items: Volume[];
+interface ResponseVolumes {
+  items: ResponseVolume[];
+}
+
+export interface VolumeData {
+  id: string;
+  title: string;
+  authors?: string;
+  description: string;
+  image?: string;
+  imageLarge?: string;
+  industryIdentifiers: [
+    {
+      type: string;
+      identifier: string;
+    }
+  ];
+  publisher: string;
+  publishedDate: string;
 }
 
 const api = axios.create({
@@ -29,7 +48,7 @@ const api = axios.create({
 
 export default {
   async getVolumes(query: string) {
-    const response = await api.get<Volumes>('/volumes', {
+    const response = await api.get<ResponseVolumes>('/volumes', {
       params: {
         q: query,
         printType: 'books',
@@ -53,11 +72,10 @@ export default {
 
     return serializedVolumes;
   },
-  async getVolume(id: string) {
-    const response = await api.get<Volume>(`/volumes/${id}`);
+  async getVolume(id: string): Promise<VolumeData> {
+    const response = await api.get<ResponseVolume>(`/volumes/${id}`);
 
     const volume = response.data;
-    console.log(volume)
 
     const serializedVolume = {
       id: volume.id,
@@ -68,7 +86,7 @@ export default {
       imageLarge: volume.volumeInfo.imageLinks?.small,
       industryIdentifiers: volume.volumeInfo.industryIdentifiers,
       publisher: volume.volumeInfo.publisher,
-      publishedDate: volume.volumeInfo.publishedDate
+      publishedDate: volume.volumeInfo.publishedDate,
     };
 
     return serializedVolume;
