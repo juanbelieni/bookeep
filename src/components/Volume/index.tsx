@@ -32,7 +32,7 @@ const Volume = (props: VolumeProps) => {
       />
       <div className="volume-info">
         <div className="volume-header">
-          <h1><Link to={`books/${volume.id}`} target="_blank">{volume.title}</Link></h1>
+          <h1><Link to={`books/${volume.id}`} target="_blank" rel="noreferrer noopener">{volume.title}</Link></h1>
           {favoriteVolumes.includes(volume.id) ? (
             <AiFillHeart
               size={25}
