@@ -7,6 +7,13 @@ export const Container = styled.div`
   @media screen and (max-width: 650px) {
     padding: 0 20px;
   }
+
+  #loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+  }
   
   .container {
     display: flex;

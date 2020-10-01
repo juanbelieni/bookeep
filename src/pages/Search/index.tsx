@@ -5,8 +5,8 @@ import createPersistedSate from 'use-persisted-state';
 import Loading from 'react-loading';
 import { useTheme } from 'styled-components';
 import { Link } from 'react-router-dom';
-import Volume from '../../components/Volume';
 
+import Volume from '../../components/Volume';
 import { Container, SearchBar } from './styles';
 import Header from 'components/Header';
 import bookApi from 'services/bookApi';
@@ -83,7 +83,12 @@ const Search = () => {
         </div>
       ) : (
         volumes.map((volume) => (
-          <Volume key={volume.id} volume={volume} favoriteVolumes={favoriteVolumes} handleFavoriteVolume={handleFavoriteVolume} />
+          <Volume
+            key={volume.id}
+            volume={volume}
+            favoriteVolumes={favoriteVolumes}
+            handleFavoriteVolume={handleFavoriteVolume}
+          />
         ))
       )}
     </Container>
