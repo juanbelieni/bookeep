@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent } from 'react';
+import React, { useState, useEffect, useRef, ChangeEvent } from 'react';
 import { AiFillHeart, AiOutlineSearch, AiOutlineHeart } from 'react-icons/ai';
 import { DebounceInput } from 'react-debounce-input';
 import createPersistedSate from 'use-persisted-state';
@@ -24,6 +24,7 @@ const Search = () => {
   const [query, setQuery] = useState('');
   const [volumes, setVolumes] = useState<VolumeData[]>([]);
   const [searching, setSearching] = useState(false);
+  const searchInputRef = useRef(null);
   const [favoriteVolumes, setFavoriteVolumes] = useFavoriteVolumesState<
     string[]
   >([]);
@@ -42,6 +43,13 @@ const Search = () => {
       setVolumes([]);
     }
   }, [query]);
+
+  useEffect(() => {
+    if (searchInputRef.current) {
+      const searchInput = searchInputRef.current || document.createElement('input');
+      searchInput.focus();
+    }
+  }, [])
 
   function handleSearchInputChange(event: ChangeEvent<HTMLInputElement>) {
     setQuery(event.target.value);
@@ -69,6 +77,7 @@ const Search = () => {
         <DebounceInput
           debounceTimeout={600}
           value={query}
+          inputRef={searchInputRef}
           onChange={handleSearchInputChange}
         />
         <div id="search-icon">
