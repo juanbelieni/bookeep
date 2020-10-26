@@ -6,9 +6,9 @@ Simple WebApp to save your favorites books.
 
 ## 🎯 Features
 
-- Search any book, powered by Google Books API
-- Save your favorites books
-- Show details about your favorites books
+- Search any book, powered by Google Books API.
+- Save your favorites books.
+- Show details about your favorites books.
 
 ## 🔧 Installation
 
@@ -39,9 +39,9 @@ $ yarn start
 ## 📪 Contributing
 
 1. Fork the Project
-2. Create your Feature Branch: `git checkout -b feature/your-feature`)
-3. Commit your Changes: `git commit -m 'Add your-feature'`)
-4. Push to the Branch: `git push origin feature/your-feature`)
+2. Create your Feature Branch: `git checkout -b feature/your-feature`
+3. Commit your Changes: `git commit -m 'Add your-feature'`
+4. Push to the Branch: `git push origin feature/your-feature`
 5. Open a Pull Request
 
 ## ✉ Contact
