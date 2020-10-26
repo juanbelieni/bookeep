@@ -1,0 +1,36 @@
+[author]
+name = "Juan Belieni"
+email = "juanbelieni@gmail.com"
+twitter = "juanbelieni"
+
+[project]
+title = "Bookeep"
+description = "Simple WebApp to save your favorites books."
+screenshot = "https://user-images.githubusercontent.com/29464328/84085422-f4d80e00-a9bb-11ea-95dc-05c9df3c9c65.png"
+features = [
+  "Search any book, powered by Google Books API",
+  "Save your favorites books",
+  "Show details about your favorites books"
+]
+instalation = '''
+```bash
+# Clone this repository
+$ git clone https://github.com/juanbelieni/bookeep.git
+
+# Go into the repository
+$ cd bookeep
+
+# Install dependencies
+$ npm install
+# or
+$ yarn
+```
+'''
+usage = '''
+```bash
+# Run with NPM
+$ npm start
+# or Yarn
+$ yarn start
+```
+'''
